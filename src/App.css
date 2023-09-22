@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav_links {
+  @apply cursor-pointer hover:text-blue-500;
+}
+
+.filter_list_item {
+  @apply flex flex-col  text-blue-950 pb-3 w-20 items-center hover:text-blue-800 border-b-4 border-b-transparent hover:border-b-blue-600 cursor-pointer;
+}
+
+.container {
+  @apply w-[80%]  mx-auto;
+}
