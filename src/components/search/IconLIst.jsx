@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const IconListItem = () => {
   return (
-    <div className="text-4xl h-48 w-48 flex  items-center justify-center rounded-md bg-white cursor-pointer transition-all  hover:bg-yellow-400">
-      <FontAwesomeIcon icon={faHouse} />
+    <div className="  h-48 w-48 flex flex-col  items-center justify-center rounded-md bg-white cursor-pointer transition-all  hover:bg-yellow-400">
+      <FontAwesomeIcon className="text-4xl" icon={faHouse} />
+      <span className="my-4">Home</span>
     </div>
   );
 };

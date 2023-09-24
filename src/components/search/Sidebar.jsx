@@ -1,7 +1,25 @@
-import { faSquare, faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSquareCheck,
+  faCircle,
+  faCircleHalfStroke,
+  faStarHalfStroke,
+  faPersonSnowboarding,
+  faStaffAesculapius,
+  faCakeCandles,
+  faLaughBeam,
+  faAppleAlt,
+  faCat,
+  faPlane,
+  faDog,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircle as faRegCircle,
+  faCircleRight,
+  faSquare,
+} from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-
+import { useFilterContext } from "../../hook/useFilterContext";
 const sidebarData = [
   {
     title: "Style",
@@ -9,22 +27,22 @@ const sidebarData = [
       {
         name: "Solid",
         number: 250,
-        icon: faStar,
+        icon: faCircle,
       },
       {
         name: "Regular",
         number: 250,
-        icon: faStar,
+        icon: faRegCircle,
       },
       {
         name: "Light",
         number: 250,
-        icon: faStar,
+        icon: faCircleRight,
       },
       {
         name: "Thin",
         number: 250,
-        icon: faStar,
+        icon: faCircleHalfStroke,
       },
     ],
   },
@@ -34,17 +52,17 @@ const sidebarData = [
       {
         name: "New In V6",
         number: 250,
-        icon: faStar,
+        icon: faStarHalfStroke,
       },
       {
         name: "Sponsored",
         number: 250,
-        icon: faStar,
+        icon: faPersonSnowboarding,
       },
       {
         name: "Staff favourites",
         number: 250,
-        icon: faStar,
+        icon: faStaffAesculapius,
       },
     ],
   },
@@ -54,38 +72,57 @@ const sidebarData = [
       {
         name: "Accesibilities",
         number: 250,
-        icon: faStar,
+        icon: faCakeCandles,
       },
       {
         name: "Alert",
         number: 250,
-        icon: faStar,
+        icon: faLaughBeam,
       },
       {
         name: "Alphabet",
         number: 250,
-        icon: faStar,
+        icon: faAppleAlt,
       },
       {
         name: "Animals",
         number: 250,
-        icon: faStar,
+        icon: faDog,
       },
       {
         name: "Childhood",
         number: 250,
-        icon: faStar,
+        icon: faPlane,
       },
       {
         name: "Pets",
         number: 250,
-        icon: faStar,
+        icon: faCat,
       },
     ],
   },
 ];
 const Sidebar = () => {
-  console.log(sidebarData);
+  const { state, dispatch } = useFilterContext();
+
+  //is active tab
+  const isActive = (filter) => state.selectedStyles.includes(filter);
+
+  // active styles
+  const activeClassFor = (filter) =>
+    state.selectedStyles.includes(filter)
+      ? `border-1  border-blue-600 text-white bg-blue-600`
+      : `text-gray-600 `;
+
+  //toggle
+  const toggleSidebarFilter = (filter) => {
+    const isActiveFilter = state.selectedStyles.includes(filter);
+    if (isActiveFilter) {
+      dispatch({ type: "REMOVE_STYLE", payload: filter });
+    } else {
+      dispatch({ type: "ADD_STYLE", payload: filter });
+    }
+  };
   return (
     <>
       <div className="mb-6">
@@ -98,17 +135,28 @@ const Sidebar = () => {
               {item.options.map((icon) => (
                 <li
                   key={icon}
-                  className="group flex justify-between border my-1 rounded-md border-transparent hover:border-gray-300 cursor-pointer py-1 px-4"
+                  onClick={() => toggleSidebarFilter(icon.name)}
+                  className={`group ${activeClassFor(
+                    icon.name
+                  )} flex justify-between border my-1 rounded-md border-transparent hover:border-gray-300 cursor-pointer py-1 px-4`}
                 >
                   <div className="text-sm flex items-center">
-                    <FontAwesomeIcon
-                      className="group-hover:hidden"
-                      icon={faStar}
-                    />
-                    <FontAwesomeIcon
-                      className="hidden group-hover:flex"
-                      icon={faSquare}
-                    />
+                    {!isActive(icon.name) ? (
+                      <>
+                        <FontAwesomeIcon
+                          className="group-hover:hidden"
+                          icon={icon.icon}
+                        />
+                        <FontAwesomeIcon
+                          className="hidden group-hover:flex"
+                          icon={faSquare}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <FontAwesomeIcon icon={faSquareCheck} />
+                      </>
+                    )}
                     <span className="px-3 font-semibold text-[13px]">
                       {icon.name}
                     </span>

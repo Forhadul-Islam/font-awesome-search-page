@@ -1,11 +1,21 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import { faGoogleWallet } from "@fortawesome/free-brands-svg-icons";
 import { faFlag } from "@fortawesome/free-regular-svg-icons";
-import { faCompactDisc, faShapes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faBorderNone,
+  faCompactDisc,
+  faShapes,
+  faTableCellsLarge,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFilterContext } from "../../hook/useFilterContext";
+import { useState } from "react";
 
 const FiltersBar = () => {
+  const [sortOption, setSortOption] = useState("Featured");
   const { state, dispatch } = useFilterContext();
+  console.log(sortOption);
 
   const activeClassFor = (filter) =>
     state.selectedFilters.includes(filter)
@@ -22,8 +32,8 @@ const FiltersBar = () => {
     }
   };
   return (
-    <div className="container pt-7 flex justify-between">
-      <ul className="flex w-3/5 justify-between">
+    <div className="container pt-7 flex items-center justify-between">
+      <ul className="flex w-3/6 justify-between">
         <li
           onClick={() => handleToggle("Classic")}
           className={`filter_list_item   ${activeClassFor("Classic")}`}
@@ -53,14 +63,28 @@ const FiltersBar = () => {
           <span className="py-3 text-sm">Free</span>
         </li>
       </ul>
+      <div className="w-48 flex items-center justify-evenly text-3xl">
+        <FontAwesomeIcon
+          className="cursor-pointer hover:text-blue-500"
+          icon={faTableCellsLarge}
+        />
+        <FontAwesomeIcon
+          className="cursor-pointer hover:text-blue-500"
+          icon={faBars}
+        />
+        <FontAwesomeIcon
+          className="cursor-pointer hover:text-blue-500"
+          icon={faBorderNone}
+        />
+      </div>
       <select
         value="fooo"
+        onChange={(e) => setSortOption(e.target.value)}
+        value={sortOption}
         className="h-14 w-52 rounded-2xl px-4  flex border-2 focus:outline-none ring-2 ring-gray-200 border-gray-400 "
       >
-        <option selected value="Feature">
-          booo
-        </option>
-        <option value="barr">Feature</option>
+        <option value="Featured">Feature</option>
+        <option value="Alphabet">Alphabet</option>
       </select>
     </div>
   );
