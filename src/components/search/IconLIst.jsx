@@ -15,8 +15,8 @@ const IconLIst = () => {
     <div className="flex flex-wrap justify-between gap-5 p-4">
       {Array(20)
         .fill(0)
-        .map(() => (
-          <IconListItem />
+        .map((icon, i) => (
+          <IconListItem key={i} />
         ))}
     </div>
   );

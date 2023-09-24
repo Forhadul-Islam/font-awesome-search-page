@@ -3,9 +3,9 @@ import Sidebar from "./Sidebar";
 
 const IconsContainer = () => {
   return (
-    <div className="bg-zinc-200/80">
-      <div className="container py-5 grid grid-cols-12">
-        <div className="col-span-3  ">
+    <div className="bg-zinc-200/50">
+      <div className="px-20 py-5 grid grid-cols-12">
+        <div className="col-span-3">
           <Sidebar />
         </div>
         <div className="col-span-9 ">

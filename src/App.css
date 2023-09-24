@@ -7,7 +7,7 @@
 }
 
 .filter_list_item {
-  @apply flex flex-col  text-blue-950 pb-3 w-20 items-center hover:text-blue-800 border-b-4 border-b-transparent hover:border-b-blue-600 cursor-pointer;
+  @apply flex flex-col   pb-3 w-20 items-center hover:text-blue-500 active:text-blue-400 border-b-4 hover:border-b-blue-500 cursor-pointer;
 }
 
 .container {
