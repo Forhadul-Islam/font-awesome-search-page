@@ -263,17 +263,23 @@ const IconLIst = ({ setIconsCount }) => {
   console.log(state.sortBy);
   const filteredIcons = iconObjects
     .filter((icon) => {
-      console.log(state.selectedFilters.includes(icon.category));
       if (state.selectedFilters.length == 0) {
+        return true;
+      } else if (
+        state.selectedFilters.length == 1 &&
+        state.selectedFilters.includes("free")
+      ) {
         return true;
       } else {
         return state.selectedFilters.includes(icon.category);
       }
     })
     .filter((icon) => {
-      return state.selectedFilters.includes("free")
-        ? icon.type == "free"
-        : true;
+      if (state.selectedFilters.includes("free")) {
+        return icon.type === "free";
+      } else {
+        return true;
+      }
     });
 
   const sortedIconst = sortIcons(state.sortBy, filteredIcons);
@@ -281,6 +287,7 @@ const IconLIst = ({ setIconsCount }) => {
   useEffect(() => {
     setIconsCount(filteredIcons.length);
   }, [filteredIcons, setIconsCount]);
+
   return (
     <div className="flex flex-wrap justify-between gap-5 p-4">
       {sortedIconst.map((icon) => (
