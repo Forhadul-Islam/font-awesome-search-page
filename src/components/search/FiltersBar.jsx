@@ -15,11 +15,10 @@ import { useState } from "react";
 const FiltersBar = () => {
   const [sortOption, setSortOption] = useState("Featured");
   const { state, dispatch } = useFilterContext();
-  console.log(sortOption);
 
   const activeClassFor = (filter) =>
     state.selectedFilters.includes(filter)
-      ? `border-b-blue-600 text-blue-800`
+      ? `border-b-blue-600 text-blue-600`
       : `text-blue-950 border-b-transparent`;
 
   //handle toggle filter
@@ -30,6 +29,12 @@ const FiltersBar = () => {
     } else {
       dispatch({ type: "ADD_FILTER", payload: filter });
     }
+  };
+
+  const handleChangeSort = (e) => {
+    let value = e.target.value;
+    setSortOption(value);
+    dispatch({ type: "CHANGE_SORTBY", payload: value });
   };
   return (
     <div className="container pt-7 flex items-center justify-between">
@@ -49,15 +54,15 @@ const FiltersBar = () => {
           <span className="py-3 text-sm">Sharp</span>
         </li>
         <li
-          onClick={() => handleToggle("Brands")}
-          className={`filter_list_item   ${activeClassFor("Brands")}`}
+          onClick={() => handleToggle("Brand")}
+          className={`filter_list_item   ${activeClassFor("Brand")}`}
         >
           <FontAwesomeIcon className="text-4xl " icon={faFlag} />
           <span className="py-3 text-sm">Brands</span>
         </li>
         <li
-          onClick={() => handleToggle("Free")}
-          className={`filter_list_item   ${activeClassFor("Free")}`}
+          onClick={() => handleToggle("free")}
+          className={`filter_list_item   ${activeClassFor("free")}`}
         >
           <FontAwesomeIcon className="text-4xl " icon={faGoogleWallet} />
           <span className="py-3 text-sm">Free</span>
@@ -79,7 +84,7 @@ const FiltersBar = () => {
       </div>
       <select
         value="fooo"
-        onChange={(e) => setSortOption(e.target.value)}
+        onChange={(e) => handleChangeSort(e)}
         value={sortOption}
         className="h-14 w-52 rounded-2xl px-4  flex border-2 focus:outline-none ring-2 ring-gray-200 border-gray-400 "
       >

@@ -2,6 +2,7 @@
 export const initialState = {
   selectedFilters: [],
   selectedStyles: [],
+  sortBy: "Featured",
 };
 
 //reducer
@@ -32,6 +33,11 @@ export const filterReducer = (state, action) => {
         ),
       };
 
+    case "CHANGE_SORTBY":
+      return {
+        ...state,
+        sortBy: action.payload,
+      };
     default:
       return state;
   }
